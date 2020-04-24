@@ -1,27 +1,26 @@
-import React from 'react';
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
+import ReactAce from 'react-ace-editor';
+import React, { Component } from 'react';
 
-const code = `function add(a, b) {
-  return a + b;
-}
-`;
-export default class CodeEditor extends React.Component {
-  state = { code };
+export default class CodeEditor extends Component {
+  contructor() {
+    super();
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange(newValue, e) {
+    console.log(newValue, e);
 
+    const editor = this.ace.editor; // The editor object is from Ace's API
+    console.log(editor.getValue()); // Outputs the value of the editor
+  }
   render() {
     return (
-      <Editor
-        value={this.state.code}
-        onValueChange={code => this.setState({ code })}
-        highlight={code => highlight(code, languages.js)}
-        padding={10}
-        style={{
-          fontFamily: '"Fira code", "Fira Mono", monospace',
-          fontSize: 12,
-        }}
+      <ReactAce
+        mode="javascript"
+        theme="eclipse"
+        // setReadOnly=false
+        onChange={this.onChange}
+        style={{ height: '400px' }}
+        ref={instance => { this.ace = instance; }} // Let's put things into scope
       />
     );
   }

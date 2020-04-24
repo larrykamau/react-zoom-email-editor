@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 import Example from './Example'
 import sample from './sample.json'
+import CodeEditor from './editor'
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -50,11 +51,22 @@ const Bar = styled.div`
   }
 `
 
-class Demo extends Component {
+export default class Demo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      code: `
+      function add(a, b) {
+        return a + b;
+      }
+      `
+    };
+  }
   render() {
     return (
       <React.Fragment>
         <GlobalStyle />
+        // <CodeEditor />
 
         <Container>
           <Bar>
